@@ -11,4 +11,5 @@ def sendMail():
     server.login(username,password)
     server.sendmail(fromaddr,toaddr,msg)
     server.quit()
+    
 sendMail()
