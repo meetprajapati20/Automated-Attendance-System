@@ -1,17 +1,18 @@
-import xlwt
+from copy import copy
 from xlwt import Workbook
+from xlutils.copy import copy
+from xlrd import open_workbook
 import datetime
-def present(rollno):
-    # Writing to an excel
-    # sheet using Python
+def present(rollno,status):
     current_time = datetime.datetime.now()
 
     # Workbook is created
-    wb = Workbook()
+    rb = open_workbook("Attendance_Entry.xls")
+    wb = copy(rb)
+    w_sheet = wb.get_sheet(0)
+    if status == rollno:
+        w_sheet.write(rollno, current_time.day, 'P')
+    else:
+        w_sheet.write(rollno, current_time.day, 'A')
 
-    # add_sheet is used to create sheet.
-    sheet1 = wb.add_sheet('Sheet 1')
-    sheet1.write(rollno, current_time.day, 'P')
-
-
-    wb.save('xlwt_example.xls')
+    wb.save('Attendance_Entry.xls')

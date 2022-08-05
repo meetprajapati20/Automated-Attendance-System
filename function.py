@@ -4,8 +4,13 @@ import acoustid
 import chromaprint
 import numpy as np
 import matplotlib.pyplot as plt
+import pyttsx3 as pyt
 from fuzzywuzzy import fuzz
 from scipy.io.wavfile import write
+from copy import copy
+from xlutils.copy import copy
+from xlrd import open_workbook
+import datetime
 
 def recordAudio(text):
   fs = 44100
@@ -36,6 +41,17 @@ def voiceDiarization(inputAudioFile,listFile):
         print(similarity,i)
     return max_file
 
+def present(rollno,status):
+    current_time = datetime.datetime.now()
+    rb = open_workbook("Attendance_Entry.xls")
+    wb = copy(rb)
+    w_sheet = wb.get_sheet(0)
+    if status == rollno:
+        w_sheet.write(rollno, current_time.day, 'P')
+    else:
+        w_sheet.write(rollno, current_time.day, 'A')
+    wb.save('Attendance_Entry.xls')
+
 if __name__ == "__main__" :
     print("Hey Good Morning.....")
     listFile=os.listdir('wav/')
@@ -48,4 +64,4 @@ if __name__ == "__main__" :
         print("start voice diarization")
         file = "tempRecording/"+str(i)+".wav"
         speaker = voiceDiarization(file,listFile)
-        print(speaker, "is present.")
+        print(speaker.split(".")[0], "is present.")
