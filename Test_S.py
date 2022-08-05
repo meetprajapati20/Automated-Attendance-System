@@ -37,7 +37,6 @@ while(1):
              
             #listens for the user's input
             audio2 = r.listen(source2)
-             
             # Using google to recognize audio
             MyText = r.recognize_google(audio2)
             MyText = MyText.lower()
