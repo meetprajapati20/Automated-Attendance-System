@@ -52,11 +52,20 @@ def attandance(rollno,status):
         w_sheet.write(rollno, current_time.day, 'A')
     wb.save('Attendance_Entry.xls')
 
+def getStudentEnroll():
+    rb = open_workbook("Attendance_Entry.xls")
+    wb = copy(rb)
+    w_sheet = wb.get_sheet(0)
+    enRoll = list()
+    while (w_sheet.cell_value(i,0) != ''):
+        enRoll.append(w_sheet.cell_value(i,0))
+        i+=1
+    return enRoll
 
 if __name__ == "__main__" :
     print("Hey Good Morning.....")
     listFile=os.listdir('wav/')
-    nList = list([1])
+    nList = getStudentEnroll()
 
     for i in nList:
         print("start recording")
