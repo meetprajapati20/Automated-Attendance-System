@@ -6,3 +6,5 @@ def textToSpeech(text):
     engine.setProperty('rate',rate-30)
     engine.say('Hello World')
     engine.runAndWait()
+
+textToSpeech()
