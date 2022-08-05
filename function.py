@@ -53,9 +53,8 @@ def attandance(rollno,status):
     wb.save('Attendance_Entry.xls')
 
 def getStudentEnroll():
-    rb = open_workbook("Attendance_Entry.xls")
-    wb = copy(rb)
-    w_sheet = wb.get_sheet(0)
+    wb = open_workbook("Attendance_Entry.xls")
+    w_sheet = wb.sheet_by_index(0)
     enRoll = list()
     while (w_sheet.cell_value(i,0) != ''):
         enRoll.append(w_sheet.cell_value(i,0))
