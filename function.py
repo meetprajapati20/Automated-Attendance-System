@@ -41,7 +41,7 @@ def voiceDiarization(inputAudioFile,listFile):
         print(similarity,i)
     return max_file
 
-def present(rollno,status):
+def attandance(rollno,status):
     current_time = datetime.datetime.now()
     rb = open_workbook("Attendance_Entry.xls")
     wb = copy(rb)
@@ -51,6 +51,7 @@ def present(rollno,status):
     else:
         w_sheet.write(rollno, current_time.day, 'A')
     wb.save('Attendance_Entry.xls')
+
 
 if __name__ == "__main__" :
     print("Hey Good Morning.....")
@@ -65,3 +66,4 @@ if __name__ == "__main__" :
         file = "tempRecording/"+str(i)+".wav"
         speaker = voiceDiarization(file,listFile)
         print(speaker.split(".")[0], "is present.")
+        attandance(i,speaker.split(".")[0])
