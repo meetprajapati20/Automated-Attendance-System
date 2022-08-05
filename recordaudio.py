@@ -1,5 +1,5 @@
+import sounddevice as sd
 def recordAudio(text):
-  import sounddevice as sd
   from scipy.io.wavfile import write
   fs = 44100  # Sample rate
   seconds = 5  # Duration of recording
