@@ -9,8 +9,8 @@ from scipy.io.wavfile import write
 
 def recordAudio(text):
   fs = 44100
-  seconds = 5 
-  text="tempRecording/"+str(text)+".wav"
+  seconds = 3  
+  text="tempRecording/"+text+".wav"
   myrecording = sd.rec(int(seconds * fs), samplerate=fs, channels=2)
   sd.wait() 
   write(text, fs, myrecording)  
@@ -23,23 +23,22 @@ def textToSpeech(text):
     engine.runAndWait()
 
 def voiceDiarization(inputAudioFile,listFile):
-    max_similarity = 0
+    max_similarity = 100
     duration1, fp_encoded1 = acoustid.fingerprint_file(inputAudioFile)
     fingerprint1, version1 = chromaprint.decode_fingerprint(fp_encoded1)
     for i in listFile:
-        duration2, fp_encoded2 = acoustid.fingerprint_file("wav/"+str(i))
+        duration2, fp_encoded2 = acoustid.fingerprint_file(audioFile)
         fingerprint2, version2 = chromaprint.decode_fingerprint(fp_encoded2)
         similarity = fuzz.ratio(fingerprint1, fingerprint2)
-        if similarity > max_similarity:
+        if similarity < max_similarity:
             max_similarity = similarity
             max_file = i
-        print(similarity,i)
     return max_file
 
 if __name__ == "__main__" :
-    print("Hey Good Morning.....")
-    listFile=os.listdir('wav/')
-    nList = list([1])
+    print("Hey Good Morning!!!")
+    listFile=os.listdir('')
+    nList = list([1,2])
 
     for i in nList:
         print("start recording")
