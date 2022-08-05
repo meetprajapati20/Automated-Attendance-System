@@ -5,12 +5,12 @@ from dtw import dtw
 import numpy as np
 from numpy.linalg import norm
 #Loading audio files
-y1, sr1 = librosa.load('meet.wav') 
+y1, sr1 = librosa.load('meet.wav')                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
 y2, sr2 = librosa.load('meet1.wav') 
 
 #Showing multiple plots using subplot
-plt.subplot(1, 2, 1) 
-mfcc1 = librosa.feature.mfcc(y1,sr1)   #Computing MFCC values
+plt.subplot(1, 2, 1)                                                                                                                                                                                                                                                                                                                                                        
+mfcc1 = librosa.feature.mfcc(y1,sr1)   #Computing MFCC values                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
 librosa.display.specshow(mfcc1)
 
 plt.subplot(1, 2, 2)
