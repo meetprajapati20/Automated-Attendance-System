@@ -58,7 +58,7 @@ def getStudentEnroll():
     return enRoll
 
 if __name__ == "__main__" :
-    print("Hey Good Morning.....")
+    print("Hey Good Morning Students.....")
     listFile=os.listdir('wav/')
     nList = getStudentEnroll()
 
