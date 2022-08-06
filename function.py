@@ -89,8 +89,8 @@ if __name__ == "__main__" :
         speaker = voiceDiarization(file,mp3)
         if(speaker>50):
             attandance(i,"P")
-            msg = "You have benn marked Present on ."+str(current_time.day)+"/"+str(current_time.month)+"."            
+            msg = "You've been marked Present on ."+str(current_time.day)+"/"+str(current_time.month)+"."            
         else:
             attandance(i,"A")
-            msg = "You have benn marked Absent on ."+str(current_time.day)+"/"+str(current_time.month)+"."
+            msg = "You've been marked Absent on ."+str(current_time.day)+"/"+str(current_time.month)+"."
         sendMail(stuEmail[nList.index(i)],msg)
