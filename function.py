@@ -5,12 +5,25 @@ import chromaprint
 import numpy as np
 import matplotlib.pyplot as plt
 import pyttsx3 as pyt
+import datetime
+import smtplib
 from fuzzywuzzy import fuzz
 from scipy.io.wavfile import write
 from copy import copy
 from xlutils.copy import copy
 from xlrd import open_workbook
-import datetime
+
+stuEmail = list()
+def sendMail(studentEmail,msg):
+    fromaddr = "meetprajapati20@gnu.ac.in"
+    toaddr = studentEmail
+    username = "meetprajapati20@gnu.ac.in"
+    password = "gnu15102020"
+    server = smtplib.SMTP('smtp.gmail.com:587')
+    server.starttls()
+    server.login(username,password)
+    server.sendmail(fromaddr,toaddr,msg)
+    server.quit()
 
 def recordAudio():
   fs = 44100
@@ -42,22 +55,25 @@ def attandance(rollno,status):
     rb = open_workbook("Attendance_Entry.xls")
     wb = copy(rb)
     w_sheet = wb.get_sheet(0)
-    w_sheet.write(rollno, current_time.day, status)
+    w_sheet.write(rollno, current_time.day + 2, status)
     wb.save('Attendance_Entry.xls')
 
 def getStudentEnroll():
     wb = open_workbook("Attendance_Entry.xls")
     w_sheet = wb.sheet_by_index(0)
     enRoll = list()
+    global stuEmail
     i=1
     j=w_sheet.nrows
     print(j)
     while (i != j):
         enRoll.append(w_sheet.cell_value(i,0))
+        stuEmail.append(w_sheet.cell_value(i,2))
         i+=1
     return enRoll
 
 if __name__ == "__main__" :
+    current_time = datetime.datetime.now()
     print("Hey Good Morning Students.....")
     listFile=os.listdir('wav/')
     nList = getStudentEnroll()
@@ -73,6 +89,8 @@ if __name__ == "__main__" :
         speaker = voiceDiarization(file,mp3)
         if(speaker>50):
             attandance(i,"P")
+            msg = "You have benn marked Present on ."+str(current_time.day)+"/"+str(current_time.month)+"."            
         else:
-        #print(speaker.split(".")[0], "is present.")
             attandance(i,"A")
+            msg = "You have benn marked Absent on ."+str(current_time.day)+"/"+str(current_time.month)+"."
+        sendMail(stuEmail[nList.index(i)],msg)
