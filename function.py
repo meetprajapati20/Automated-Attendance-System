@@ -93,4 +93,4 @@ if __name__ == "__main__" :
         else:
             attandance(i,"A")
             msg = "You've been marked Absent on ."+str(current_time.day)+"/"+str(current_time.month)+"."
-        sendMail(stuEmail[nList.index(i)],msg)
+        #sendMail(stuEmail[nList.index(i)],msg)
